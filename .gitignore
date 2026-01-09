@@ -48,3 +48,5 @@ node_modules/
 
 # Exception: Allow example env files so people know what variables to set
 !.env.example
+
+.ruff_cache# Test
