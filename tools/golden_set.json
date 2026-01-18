@@ -18,7 +18,14 @@
 			"author": "aers",
 			"category": "core",
 			"description": "Fixes various engine bugs and issues in Skyrim SE",
-			"files": []
+			"files": [
+				{
+					"filename": "EngineFixes.dll",
+					"sha256": "44f679d547244fb60bd10f9e705ba1d0ee421e4951ebc211070fe5240b54f14a",
+					"size_bytes": 2439680,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "SkyUI",
@@ -34,7 +41,14 @@
 			"author": "powerofthree",
 			"category": "fixes",
 			"description": "Collection of engine-level fixes and improvements",
-			"files": []
+			"files": [
+				{
+					"filename": "po3_Tweaks.dll",
+					"sha256": "1aff9914d9685c16f7dce11882186ca5dd15402c37159bc45ce1584ab3475e70",
+					"size_bytes": 1041920,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "powerofthree's Papyrus Extender",
@@ -42,7 +56,14 @@
 			"author": "powerofthree",
 			"category": "framework",
 			"description": "Extends Papyrus scripting with new functions",
-			"files": []
+			"files": [
+				{
+					"filename": "po3_PapyrusExtender.dll",
+					"sha256": "5c39fa85d96426be57cd618dc437aed4ea59a19b4f357caae273021ac004d20a",
+					"size_bytes": 3076608,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Bug Fixes SSE",
@@ -50,7 +71,14 @@
 			"author": "meh321",
 			"category": "fixes",
 			"description": "Fixes for various game bugs not addressed by engine fixes",
-			"files": []
+			"files": [
+				{
+					"filename": "BugFixesSSE.dll",
+					"sha256": "24c1c73500c34950ec89240aa980d774308c914a632044c08d33e261cee7fb79",
+					"size_bytes": 569344,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "ConsoleUtilSSE",
@@ -58,7 +86,14 @@
 			"author": "Ryan",
 			"category": "utility",
 			"description": "Extended console functionality for modders",
-			"files": []
+			"files": [
+				{
+					"filename": "ConsoleUtilSSE.dll",
+					"sha256": "ca94ffae9e3860c73c70b1cfc7dfc4cf05ee5d404fdd7b82ec5eb1fdd65761ee",
+					"size_bytes": 1398784,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "More Informative Console",
@@ -66,7 +101,14 @@
 			"author": "Linthar",
 			"category": "utility",
 			"description": "Enhanced console with detailed object information",
-			"files": []
+			"files": [
+				{
+					"filename": "MoreInformativeConsole.dll",
+					"sha256": "b655c706cfdb07973ec398c73bd35d85aa276ffb903f87b3674269e504db16ba",
+					"size_bytes": 1154048,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "MCM Helper",
@@ -74,7 +116,14 @@
 			"author": "Parapets",
 			"category": "framework",
 			"description": "Simplifies Mod Configuration Menu creation",
-			"files": []
+			"files": [
+				{
+					"filename": "MCMHelper.dll",
+					"sha256": "059a72858477a109dba44852fe19188ba4aca6b49b1b71863669dc00c4b7e037",
+					"size_bytes": 882688,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Scaleform Translation++",
@@ -82,7 +131,14 @@
 			"author": "Ryan",
 			"category": "utility",
 			"description": "Translation framework for Scaleform-based mods",
-			"files": []
+			"files": [
+				{
+					"filename": "ScaleformTranslationPP.dll",
+					"sha256": "ea1c97674d5943365cb413ea892a923910bb0f7f62dfd947fc137548d3e8cc35",
+					"size_bytes": 1091072,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "ENB Helper SE",
@@ -90,7 +146,14 @@
 			"author": "aers",
 			"category": "graphics",
 			"description": "Enables advanced ENB features and weather detection",
-			"files": []
+			"files": [
+				{
+					"filename": "ENBHelperSE.dll",
+					"sha256": "cfb1650eb592b488c8d8e89c98c5ef1bcea785e466ae4f21374990c6785ca62e",
+					"size_bytes": 573440,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Dynamic Animation Replacer",
@@ -106,7 +169,14 @@
 			"author": "Expired",
 			"category": "ui",
 			"description": "Extended character customization interface",
-			"files": []
+			"files": [
+				{
+					"filename": "skee64.dll",
+					"sha256": "a81e1f8a5fa86f9fda35602dae38e74fcd5c2f57338e702059ce1584991a089b",
+					"size_bytes": 2491392,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Scrambled Bugs",
@@ -114,7 +184,14 @@
 			"author": "KernalsEgg",
 			"category": "fixes",
 			"description": "Additional engine bug fixes",
-			"files": []
+			"files": [
+				{
+					"filename": "ScrambledBugs.dll",
+					"sha256": "dd8b458e623fe9362a0e0acaa32223dad5a25a798019305dc8ffa987f9d6b969",
+					"size_bytes": 621568,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Actor Limit Fix",
@@ -122,7 +199,14 @@
 			"author": "meh321",
 			"category": "fixes",
 			"description": "Prevents crashes from actor count limits",
-			"files": []
+			"files": [
+				{
+					"filename": "ActorLimitFix.dll",
+					"sha256": "b28de705613aceefd16d44bfc4fa21288b644be5a7decaf9c5603690b1d89a23",
+					"size_bytes": 563712,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Better Jumping SE",
@@ -138,7 +222,14 @@
 			"author": "silvericed",
 			"category": "framework",
 			"description": "JSON-based data storage for Papyrus scripts",
-			"files": []
+			"files": [
+				{
+					"filename": "JContainers64.dll",
+					"sha256": "3fcd32150c68f1691fe225a76f44911d35cfd0211257190484d1be790de23dac",
+					"size_bytes": 2931712,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Fuz Ro D-oh",
@@ -154,7 +245,14 @@
 			"author": "powerofthree",
 			"category": "framework",
 			"description": "Distributes spells, perks, and items to NPCs dynamically",
-			"files": []
+			"files": [
+				{
+					"filename": "po3_SpellPerkItemDistributor.dll",
+					"sha256": "3854e94f4b8934469b646af0c2df04cb813a1ac88dd0b58fcd361b20bb0bf532",
+					"size_bytes": 1856512,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Improved Camera SE",
@@ -162,7 +260,14 @@
 			"author": "ArranzCNL",
 			"category": "camera",
 			"description": "True first-person body and improved camera control",
-			"files": []
+			"files": [
+				{
+					"filename": "ImprovedCameraSE.dll",
+					"sha256": "16628f90355fbeb60ab174a09dcc314afc5546cb9cbecce08a239d01b7ad24c9",
+					"size_bytes": 1446400,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "moreHUD SE",
@@ -178,7 +283,14 @@
 			"author": "Ersh",
 			"category": "ui",
 			"description": "Modern health bars and target info framework",
-			"files": []
+			"files": [
+				{
+					"filename": "TrueHUD.dll",
+					"sha256": "a7eec5e7e6997e04b158fa3add1e326682ee9720da98c5758c4e626bdb705f01",
+					"size_bytes": 759296,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Keyword Item Distributor",
@@ -186,7 +298,14 @@
 			"author": "powerofthree",
 			"category": "framework",
 			"description": "Distributes keywords to items dynamically",
-			"files": []
+			"files": [
+				{
+					"filename": "po3_KeywordItemDistributor.dll",
+					"sha256": "e7526b84193e04cab0b73735698311a36c0851c3726c7ef6cf57e2c6aa2065ce",
+					"size_bytes": 1623040,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Base Object Swapper",
@@ -194,7 +313,14 @@
 			"author": "powerofthree",
 			"category": "framework",
 			"description": "Swaps base objects dynamically at runtime",
-			"files": []
+			"files": [
+				{
+					"filename": "po3_BaseObjectSwapper.dll",
+					"sha256": "998218f12588641858af160c42e12455d9064a1b5adfa924a8d8245a37991029",
+					"size_bytes": 1319936,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Backported Extended ESL Support",
@@ -210,7 +336,14 @@
 			"author": "Felisky",
 			"category": "animation",
 			"description": "Modern condition-based animation replacement framework",
-			"files": []
+			"files": [
+				{
+					"filename": "OpenAnimationReplacer.dll",
+					"sha256": "a908eca3a068c3ea67edc3495e8baa80038c3db345b7e1a051c80b9ad093a1b7",
+					"size_bytes": 3443712,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Nemesis Unlimited Behavior Engine",
@@ -242,7 +375,14 @@
 			"author": "alexsylex",
 			"category": "animation",
 			"description": "Fixes animation-movement synchronization issues",
-			"files": []
+			"files": [
+				{
+					"filename": "AnimationMotionRevolution.dll",
+					"sha256": "359f9389e1093062b49b3595277c2289052bc5900a9ecd109c715e50f0e8d06f",
+					"size_bytes": 1467904,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "True Directional Movement",
@@ -330,7 +470,14 @@
 			"author": "aers",
 			"category": "physics",
 			"description": "High-performance physics simulation for body and cloth",
-			"files": []
+			"files": [
+				{
+					"filename": "hdtSMP64.dll",
+					"sha256": "ceb5b009191bb795f2e1d7d0c49deef1436cd87b5082ee9f4ec6a98b22a0a582",
+					"size_bytes": 6239744,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "CBPC - Physics with Collisions",
@@ -338,7 +485,14 @@
 			"author": "vsv",
 			"category": "physics",
 			"description": "Body physics with collision detection",
-			"files": []
+			"files": [
+				{
+					"filename": "cbp.dll",
+					"sha256": "e1976ae08f3158eb9ecdf0df803844a5c4518705a9c7441b87bee0055103b2f1",
+					"size_bytes": 1100288,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "3BA - CBBE 3BBB Body Amazing",
@@ -362,7 +516,14 @@
 			"author": "SLuckyD",
 			"category": "utility",
 			"description": "Display, framerate, and input adjustments",
-			"files": []
+			"files": [
+				{
+					"filename": "SSEDisplayTweaks.dll",
+					"sha256": "ae83f3a73359e45de98a39596ba9d96f416ae15f7cd6925dc347d484b9faf5bb",
+					"size_bytes": 577536,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "Crash Logger SSE AE VR",
@@ -370,7 +531,14 @@
 			"author": "Nightfallstorm",
 			"category": "utility",
 			"description": "Crash log generation with PDB support",
-			"files": []
+			"files": [
+				{
+					"filename": "CrashLogger.dll",
+					"sha256": "b556270889208a00ae20e0a68482178bafc56784fbfe67b9e9e52f74e056cf31",
+					"size_bytes": 2836480,
+					"status": "verified"
+				}
+			]
 		},
 		{
 			"name": "PapyrusUtil SE",
