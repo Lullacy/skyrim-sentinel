@@ -2,11 +2,14 @@
 Skyrim Sentinel - API Client Module
 
 Communicates with the Sentinel verification API.
+Supports hybrid mode: remote-first with local cache fallback.
 """
 
 from dataclasses import dataclass
+from typing import Literal
 
 import requests
+from local_cache import LocalCache, init_cache_from_golden_set
 
 
 @dataclass
@@ -26,6 +29,7 @@ class ScanResult:
     hash: str
     status: str  # "verified", "unknown", "revoked"
     plugin: PluginInfo | None = None
+    source: Literal["remote", "cached"] = "remote"
 
 
 @dataclass
@@ -37,6 +41,7 @@ class ScanResponse:
     unknown: int
     revoked: int
     results: list[ScanResult]
+    source: Literal["remote", "cached", "mixed"] = "remote"
 
 
 class SentinelAPIError(Exception):
@@ -52,14 +57,15 @@ class SentinelClient:
     Client for the Skyrim Sentinel verification API.
     """
 
-    DEFAULT_URL = "http://localhost:8787"
+    # Production Cloudflare Worker URL
+    DEFAULT_URL = "https://sentinel-worker.seanpayomo-work.workers.dev"
 
     def __init__(self, base_url: str | None = None, timeout: int = 30):
         """
         Initialize the client.
 
         Args:
-            base_url: API base URL (default: localhost for dev)
+            base_url: API base URL (default: production worker)
             timeout: Request timeout in seconds
         """
         self.base_url = (base_url or self.DEFAULT_URL).rstrip("/")
@@ -136,6 +142,7 @@ class SentinelClient:
                     hash=item["hash"],
                     status=item["status"],
                     plugin=plugin,
+                    source="remote",
                 )
             )
 
@@ -145,4 +152,134 @@ class SentinelClient:
             unknown=data.get("unknown", 0),
             revoked=data.get("revoked", 0),
             results=results,
+            source="remote",
         )
+
+
+class HybridVerifier:
+    """
+    Hybrid verifier with remote-first, local-fallback strategy.
+
+    Tries the Cloudflare Worker first for up-to-date security data.
+    Falls back to local cache for offline use or network issues.
+    """
+
+    def __init__(
+        self,
+        remote_timeout: int = 5,
+        base_url: str | None = None,
+        cache: LocalCache | None = None,
+    ):
+        """
+        Initialize the hybrid verifier.
+
+        Args:
+            remote_timeout: Timeout for remote API calls (default: 5s)
+            base_url: Override remote API URL
+            cache: Optional pre-initialized LocalCache
+        """
+        self.client = SentinelClient(base_url=base_url, timeout=remote_timeout)
+        self.cache = cache or init_cache_from_golden_set()
+        self._last_source: Literal["remote", "cached"] = "cached"
+
+    @property
+    def last_source(self) -> Literal["remote", "cached"]:
+        """Source used for the last verification."""
+        return self._last_source
+
+    def verify(self, hashes: list[str]) -> ScanResponse:
+        """
+        Verify hashes using remote-first, local-fallback strategy.
+
+        Args:
+            hashes: List of SHA-256 hashes to verify
+
+        Returns:
+            ScanResponse with results (includes source field)
+        """
+        if not hashes:
+            raise ValueError("Hashes list cannot be empty")
+
+        # Try remote first
+        try:
+            response = self.client.scan(hashes)
+            self._last_source = "remote"
+            return response
+        except (requests.RequestException, SentinelAPIError) as e:
+            # Log but don't fail - fall back to cache
+            print(f"[HybridVerifier] Remote failed ({e}), using local cache")
+
+        # Fallback to local cache
+        self._last_source = "cached"
+        return self._verify_from_cache(hashes)
+
+    def _verify_from_cache(self, hashes: list[str]) -> ScanResponse:
+        """Verify hashes using local cache."""
+        cache_results = self.cache.get_batch(hashes)
+
+        results = []
+        verified = 0
+        unknown = 0
+        revoked = 0
+
+        for hash_str, cached in cache_results.items():
+            if cached is None:
+                unknown += 1
+                results.append(
+                    ScanResult(
+                        hash=hash_str,
+                        status="unknown",
+                        plugin=None,
+                        source="cached",
+                    )
+                )
+            elif cached.status == "revoked":
+                revoked += 1
+                results.append(
+                    ScanResult(
+                        hash=hash_str,
+                        status="revoked",
+                        plugin=PluginInfo(
+                            name=cached.name,
+                            nexus_id=cached.nexus_id,
+                            filename=cached.filename,
+                        ),
+                        source="cached",
+                    )
+                )
+            else:
+                verified += 1
+                results.append(
+                    ScanResult(
+                        hash=hash_str,
+                        status="verified",
+                        plugin=PluginInfo(
+                            name=cached.name,
+                            nexus_id=cached.nexus_id,
+                            filename=cached.filename,
+                        ),
+                        source="cached",
+                    )
+                )
+
+        return ScanResponse(
+            scanned=len(hashes),
+            verified=verified,
+            unknown=unknown,
+            revoked=revoked,
+            results=results,
+            source="cached",
+        )
+
+    def is_online(self) -> bool:
+        """Check if remote API is available."""
+        return self.client.health_check()
+
+    def sync_cache(self) -> int:
+        """
+        Sync local cache from golden_set.json.
+
+        Returns:
+            Number of entries synced
+        """
+        return self.cache.load_from_golden_set()
