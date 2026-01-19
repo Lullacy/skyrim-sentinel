@@ -15,6 +15,17 @@
 			"binding": "SENTINEL_HASHES",
 			"id": "24bc7eff99354e51a924aa8d3a0d63be"
 		}
+	],
+	// Rate limiting to prevent abuse (60 requests/minute per IP)
+	"ratelimits": [
+		{
+			"name": "RATE_LIMITER",
+			"namespace_id": "1001",
+			"simple": {
+				"limit": 60,
+				"period": 60
+			}
+		}
 	]
 	/**
 	 * Smart Placement

@@ -1,6 +1,12 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import type { ErrorResponse, KVPluginEntry, ScanRequest, ScanResponse, ScanResult } from "./types";
+import type {
+	ErrorResponse,
+	KVPluginEntry,
+	ScanRequest,
+	ScanResponse,
+	ScanResult,
+} from "./types";
 
 // ============================================================================
 // App Configuration
@@ -8,9 +14,28 @@ import type { ErrorResponse, KVPluginEntry, ScanRequest, ScanResponse, ScanResul
 
 type Bindings = {
 	SENTINEL_HASHES: KVNamespace;
+	RATE_LIMITER: RateLimit;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+// ============================================================================
+// Rate Limiting Helper
+// ============================================================================
+
+async function checkRateLimit(
+	rateLimiter: RateLimit,
+	key: string,
+): Promise<{ success: boolean }> {
+	try {
+		const result = await rateLimiter.limit({ key });
+		return { success: result.success };
+	} catch (error) {
+		// If rate limiter fails, allow request (fail open)
+		console.error("Rate limiter error:", error);
+		return { success: true };
+	}
+}
 
 // ============================================================================
 // Middleware
@@ -46,6 +71,24 @@ app.get("/health", (c) =>
 
 // Scan endpoint - verify hashes against Golden Set
 app.post("/api/v1/scan", async (c) => {
+	// Rate limit by client IP
+	const clientIP =
+		c.req.header("cf-connecting-ip") ||
+		c.req.header("x-forwarded-for") ||
+		"unknown";
+	const rateLimitResult = await checkRateLimit(
+		c.env.RATE_LIMITER,
+		`scan:${clientIP}`,
+	);
+
+	if (!rateLimitResult.success) {
+		const response: ErrorResponse = {
+			error: "Rate limit exceeded. Please try again later.",
+			code: "RATE_LIMITED",
+		};
+		return c.json(response, 429);
+	}
+
 	// Parse request body
 	let body: ScanRequest;
 	try {
